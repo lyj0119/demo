@@ -5,7 +5,24 @@
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd">
+	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo?characterEncoding=utf-8"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
 	
+	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+	
+	<bean id="productDao" class="cn.dw.oa.dao.ProductDaoImpl">
+		<property name="jdbcTemplate" ref="jt"></property>
+	</bean>
+	
+	<bean id="productService" class="cn.dw.oa.service.ProductServiceImpl">
+		<property name="productDao" ref="productDao"></property>
+	</bean>
 </beans>
 
 

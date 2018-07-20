@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.dw.oa.model.Product;
+import cn.dw.oa.service.ProductService;
 import cn.dw.oa.service.ProductServiceImpl;
 
 /**
@@ -17,7 +18,7 @@ import cn.dw.oa.service.ProductServiceImpl;
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ProductServiceImpl productService = new ProductServiceImpl();
+	private ProductService productService = new ProductServiceImpl();
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
