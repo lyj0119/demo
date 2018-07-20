@@ -13,25 +13,30 @@ public class ProductDaoImpl extends BaseDaoImpl<Product>{
 		System.out.println(daoImpl.getById(1));
 	}
 	
-	public void save(Product product) {
+	public int save(Product product) {
 		String sql = "insert into product (name,price,remark) values (?,?,?)";
-		super.update(sql, product.getName(), product.getPrice(), product.getRemark());
+		return super.update(sql, product.getName(), product.getPrice(), product.getRemark());
 	}
 	
-	public void update(Product product) {
+	public int update(Product product) {
 		String sql = "update product set name = ? , price = ? , remark = ? where id = ?";
-		super.update(sql, product.getName(), product.getPrice(), product.getRemark(), product.getId());
+		return super.update(sql, product.getName(), product.getPrice(), product.getRemark(), product.getId());
 	}
 	
-	public void delete(int id) {
+	public int delete(int id) {
 		String sql = "delete from product where id = ?";
-		super.update(sql, id);
+		return super.update(sql, id);
 	}
 	
 	public Product getById(int id) {
 		String sql = "select * from product where id = ?";
 		List<Product> pList = query(sql, id);
 		return pList.size() == 0 ? null : pList.get(0);
+	}
+	
+	public List<Product> queryByName(String keyword) {
+		String sql = "select * from product where name like ?";
+		return query(sql, "%" + keyword + "%");
 	}
 
 	@Override

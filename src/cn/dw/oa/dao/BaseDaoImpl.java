@@ -27,7 +27,7 @@ public abstract class BaseDaoImpl<T> {
 			}
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				tList.add(getRow(resultSet));
+				tList.add(this.getRow(resultSet));
 			}
 			return tList;
 		} catch (Exception e) {
