@@ -29,7 +29,7 @@ public class ProductServiceTest {
 	@Test
 	public void testSave() {
 		Product product = new Product();
-		product.setName("速度放松放松分");
+		product.setName("华为2");
 		product.setPrice(234.5);
 		product.setRemark("asdadada阿打算");
 		productService.save(product);

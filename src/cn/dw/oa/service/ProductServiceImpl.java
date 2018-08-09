@@ -18,7 +18,11 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public int save(Product product) {
-		return productDao.save(product);
+		System.out.println(productDao);
+		System.out.println(product);
+		int result = productDao.save(product);
+		//Integer.parseInt("sss");
+		return result;
 	}
 	
 	/* (non-Javadoc)

@@ -1,11 +1,18 @@
 package cn.dw.oa.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.alibaba.fastjson.JSONArray;
 
 import cn.dw.oa.model.Product;
 import cn.dw.oa.service.ProductService;
@@ -18,14 +25,15 @@ import cn.dw.oa.service.ProductServiceImpl;
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ProductService productService = new ProductServiceImpl();
+	private ProductService productService;
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ProductServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-bean.xml");
+		productService = applicationContext.getBean("productService", ProductService.class);
 	}
 
 	/**
@@ -54,9 +62,15 @@ public class ProductServlet extends HttpServlet {
 			response.sendRedirect("/demo/query.jsp");
 		} else if (type.equals("query")) {
 			String keyword = request.getParameter("keyword");
-			request.setAttribute("proList", productService.queryByName(keyword));
+			/*request.setAttribute("proList", productService.queryByName(keyword));
 			request.getSession().setAttribute("keyword", keyword);
-			request.getRequestDispatcher("/query.jsp").forward(request, response);
+			request.getRequestDispatcher("/query.jsp").forward(request, response);*/
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.addAll(productService.queryByName(keyword));
+			response.setContentType("text/json; charset=utf-8");
+			PrintWriter printWriter = response.getWriter();
+			printWriter.print(jsonArray.toJSONString());
+			printWriter.close();
 		} else if (type.equals("delete")) {
 			String id = request.getParameter("id");
 			productService.delete(Integer.parseInt(id));
