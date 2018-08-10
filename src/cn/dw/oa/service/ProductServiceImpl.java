@@ -54,7 +54,9 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public List<Product> queryByName(String keyword) {
-		return productDao.queryByName(keyword);
+		int page = 2;
+		int size = 5;
+		return productDao.queryByName("%" + keyword + "%", (page - 1) * size, size);
 	}
 	
 }

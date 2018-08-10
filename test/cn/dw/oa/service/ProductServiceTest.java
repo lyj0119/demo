@@ -1,4 +1,4 @@
-package cn.dw.oa.dao;
+package cn.dw.oa.service;
 
 import static org.junit.Assert.*;
 
@@ -9,13 +9,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.dw.oa.model.Product;
-import cn.dw.oa.service.ProductService;
 
 public class ProductServiceTest {
-
+	
 	private static ApplicationContext applicationContext;
 	private static ProductService productService;
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		applicationContext = new ClassPathXmlApplicationContext("spring-bean.xml");
@@ -29,25 +28,22 @@ public class ProductServiceTest {
 	@Test
 	public void testSave() {
 		Product product = new Product();
-		product.setName("华为2");
-		product.setPrice(234.5);
-		product.setRemark("asdadada阿打算");
+		product.setName("huawei234");
+		product.setPrice(345.0);
 		productService.save(product);
 	}
 
 	@Test
-	public void testUpdateProduct() {
+	public void testUpdate() {
 		Product product = new Product();
-		product.setName("速度放松放松分");
-		product.setPrice(234.5);
-		product.setRemark("asdadada阿打算");
-		product.setId(5);
+		product.setId(24);
+		product.setName("honor123");
 		productService.update(product);
 	}
 
 	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		productService.delete(23);
 	}
 
 	@Test
@@ -57,8 +53,9 @@ public class ProductServiceTest {
 
 	@Test
 	public void testQueryByName() {
-		for (Product product : productService.queryByName("one")) {
-			System.out.println(product);
+		for (Product temp : productService.queryByName("")) {
+			System.out.println(temp);
 		}
 	}
+
 }

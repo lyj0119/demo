@@ -21,12 +21,14 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 		<property name="password" value="123456"></property>
 	</bean>
 	
-	<bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+	<bean id="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis.cfg.xml"></property>
 		<property name="dataSource" ref="ds"></property>
 	</bean>
 	
-	<bean id="productDao" class="cn.dw.oa.dao.ProductDaoImpl">
-		<property name="jdbcTemplate" ref="jt"></property>
+	<bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="ssfb"></property>
+		<property name="mapperInterface" value="cn.dw.oa.dao.ProductDao"></property>
 	</bean>
 	
 	<bean id="productService" class="cn.dw.oa.service.ProductServiceImpl">
@@ -51,6 +53,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 		<aop:pointcut expression="execution(* cn.dw.oa.service.*.*(..))" id="aop"/>
 		<aop:advisor advice-ref="tx" pointcut-ref="aop"/>
 	</aop:config>
+	
 </beans>
 
 
