@@ -5,12 +5,11 @@
 	<title>添加商品</title>
 </head>
 <body>
-	<form action="/demo/ProductServlet" method="post">
+	<form action="/demo/product/save.mvc" method="post">
 	商品名：<input type="text" name="name" /><br />
 	价格：<input type="text" name="price" /><br />
 	备注：<textarea rows="5" cols="20" name="remark"></textarea> 
 	<button type="submit">添加商品</button>
-	<input type="hidden" name="type" value="save" />
 	</form>
 </body>
 </html>

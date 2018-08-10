@@ -6,10 +6,9 @@
 	<title>查询</title>
 </head>
 <body>
-	<form action="/demo/ProductServlet" method="get">
+	<form action="/demo/product/query.mvc" method="get">
 		查询关键字：<input type="text" name="keyword" value="${keyword}"/><br />
 		<button type="submit">搜索</button>
-		<input type="hidden" name="type" value="query" />
 	</form>
 	<table width="800" border="1">
 		<tr>
@@ -27,8 +26,8 @@
 				<td>${p.price}</td>
 				<td>${p.date}</td>
 				<td>${p.remark}</td>
-				<td><a href="/demo/ProductServlet?id=${p.id}&type=delete">删除</a>
-				|<a href="/demo/ProductServlet?id=${p.id}&type=getById">更新</a></td>
+				<td><a href="/demo/product/delete.mvc?id=${p.id}">删除</a>
+				|<a href="/demo/product/getById.mvc?id=${p.id}">更新</a></td>
 			</tr>
 		</c:forEach>
 	</table>

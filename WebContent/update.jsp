@@ -5,12 +5,11 @@
 	<title>更新商品</title>
 </head>
 <body>
-	<form action="/demo/ProductServlet" method="post">
+	<form action="/demo/product/update.mvc" method="post">
 	商品名：<input type="text" name="name" value="${product.name}"/><br />
 	价格：<input type="text" name="price" value="${product.price}"/><br />
 	备注：<textarea rows="5" cols="20" name="remark">${product.remark}</textarea> 
 	<button type="submit">更新商品</button>
-	<input type="hidden" name="type" value="update" />
 	<input type="hidden" name="id" value="${product.id}" />
 	</form>
 </body>
