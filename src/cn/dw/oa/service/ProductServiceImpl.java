@@ -2,16 +2,18 @@ package cn.dw.oa.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import cn.dw.oa.dao.ProductDao;
 import cn.dw.oa.model.Product;
 
+@Service("productService")
 public class ProductServiceImpl implements ProductService {
 
+	@Resource
 	private ProductDao productDao;
-	
-	public void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
-	}
 	
 	/* (non-Javadoc)
 	 * @see cn.dw.oa.service.ProductService#save(cn.dw.oa.model.Product)
@@ -54,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public List<Product> queryByName(String keyword) {
-		int page = 2;
+		int page = 1;
 		int size = 5;
 		return productDao.queryByName("%" + keyword + "%", (page - 1) * size, size);
 	}

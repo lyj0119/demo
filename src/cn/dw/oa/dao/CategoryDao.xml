@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dw.oa.dao.CategoryDao">
+
+	<resultMap type="category" id="baseMap">
+		<id property="id" column="cat_id" />
+		<result property="name" column="cat_name" />
+	</resultMap>
+	
+	<!-- 用了resultType不会报错，但返回空 -->
+	<select id="queryByName" parameterType="string" resultMap="baseMap">
+		select * from category where cat_name like #{keyword}
+	</select>
+	
+</mapper>

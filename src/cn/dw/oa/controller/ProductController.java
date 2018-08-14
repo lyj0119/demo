@@ -1,29 +1,14 @@
 package cn.dw.oa.controller;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.dw.oa.model.Product;
-import cn.dw.oa.service.ProductService;
 
 @RequestMapping("/product")
-public class ProductController {
+@Controller
+public class ProductController extends BaseController {
 
-	private ProductService productService;
-	
-	public void setProductService(ProductService productService) {
-		this.productService = productService;
-	}
-	
-	@Resource
-	private HttpServletRequest request;
-	
-	@Resource
-	private HttpSession session;
-	
 	@RequestMapping("/save")
 	public String save(Product product) {
 		productService.save(product);

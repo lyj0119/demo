@@ -17,6 +17,7 @@
 			<th>价格</th>
 			<th>备注</th>
 			<th>日期</th>
+			<th>类别</th>
 			<th>操作</th>
 		</tr>
 		<c:forEach items="${proList}" var="p">
@@ -24,8 +25,9 @@
 				<td>${p.id}</td>
 				<td>${p.name}</td>
 				<td>${p.price}</td>
-				<td>${p.date}</td>
 				<td>${p.remark}</td>
+				<td>${p.date}</td>
+				<td>${p.category.name}</td>
 				<td><a href="/demo/product/delete.mvc?id=${p.id}">删除</a>
 				|<a href="/demo/product/getById.mvc?id=${p.id}">更新</a></td>
 			</tr>

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.dw.oa.model.Category;
 import cn.dw.oa.model.Product;
 
 public class ProductServiceTest {
@@ -30,25 +31,28 @@ public class ProductServiceTest {
 		Product product = new Product();
 		product.setName("huawei234");
 		product.setPrice(345.0);
+		Category category = new Category();
+		category.setId(2);
+		product.setCategory(category);
 		productService.save(product);
 	}
 
 	@Test
 	public void testUpdate() {
 		Product product = new Product();
-		product.setId(24);
+		product.setId(2);
 		product.setName("honor123");
 		productService.update(product);
 	}
 
 	@Test
 	public void testDelete() {
-		productService.delete(23);
+		productService.delete(2);
 	}
 
 	@Test
 	public void testGetById() {
-		System.out.println(productService.getById(5));
+		System.out.println(productService.getById(1));
 	}
 
 	@Test

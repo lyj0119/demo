@@ -6,4 +6,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<package name="cn.dw.oa.model"/>
 	</typeAliases>
+	
+	<mappers>
+		<!-- 级联查询时， 如果未在spring配置级联的类的dao扫描，也未在这里配置，会报-->
+		<!-- java.lang.IllegalArgumentException: Result Maps collection does not contain value for aa.bb.cc.base -->
+		<!-- <mapper resource="cn/dw/oa/dao/CategoryDao.xml" /> -->
+		<!-- <mapper resource="cn/dw/oa/dao/ProductDao.xml" /> -->
+		<package name="cn.dw.oa.dao"/>
+	</mappers>
 </configuration>

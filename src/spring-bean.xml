@@ -4,6 +4,7 @@
        xmlns:lang="http://www.springframework.org/schema/lang"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
@@ -12,8 +13,11 @@ http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
 http://www.springframework.org/schema/tx 
 http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
 http://www.springframework.org/schema/aop 
-http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	
+	<!-- 连接池 -->
 	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/demo?characterEncoding=utf-8"></property>
@@ -21,34 +25,34 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 		<property name="password" value="123456"></property>
 	</bean>
 	
+	<!-- Mybatis连接 -->
 	<bean id="ssfb" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis.cfg.xml"></property>
 		<property name="dataSource" ref="ds"></property>
 	</bean>
 	
-	<bean id="productDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<!-- Dao映射 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactory" ref="ssfb"></property>
-		<property name="mapperInterface" value="cn.dw.oa.dao.ProductDao"></property>
+		<property name="basePackage" value="cn.dw.oa.dao"></property>
 	</bean>
 	
-	<bean id="productService" class="cn.dw.oa.service.ProductServiceImpl">
-		<property name="productDao" ref="productDao"></property>
-	</bean>
+	<!-- Service扫描 -->
+	<context:component-scan base-package="cn.dw.oa.service"></context:component-scan>
 	
+	<!-- Service事务 -->
 	<bean id="tm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="ds"></property>
 	</bean>
-	
 	<tx:advice id="tx" transaction-manager="tm">
 		<tx:attributes>
 			<tx:method name="save*" propagation="REQUIRED"/>
 			<tx:method name="update*" propagation="REQUIRED"/>
 			<tx:method name="delete*" propagation="REQUIRED"/>
-			<tx:method name="query*" propagation="NEVER"/>
-			<tx:method name="get*" propagation="NEVER"/>
+			<tx:method name="query*" propagation="SUPPORTS"/>
+			<tx:method name="get*" propagation="SUPPORTS"/>
 		</tx:attributes>
-	</tx:advice>
-	
+	</tx:advice>	
 	<aop:config>
 		<aop:pointcut expression="execution(* cn.dw.oa.service.*.*(..))" id="aop"/>
 		<aop:advisor advice-ref="tx" pointcut-ref="aop"/>
